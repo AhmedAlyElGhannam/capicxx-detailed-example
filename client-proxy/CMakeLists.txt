@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(ivi-client)
+project(IVI-Client)
 
 find_package(CommonAPI REQUIRED)
 find_package(CommonAPI-SomeIP REQUIRED)

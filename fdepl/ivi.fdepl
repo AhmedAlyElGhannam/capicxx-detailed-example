@@ -40,7 +40,7 @@ define org.genivi.commonapi.someip.deployment for provider as Service {
 
         SomeIpInstanceID = 22138
 
-        SomeIpUnicastAddress = "192.168.100.54" // changes based on the ip of ecu running service
+        SomeIpUnicastAddress = "127.0.0.1" // changes based on the ip of ecu running service
         SomeIpReliableUnicastPort = 30499
         SomeIpUnreliableUnicastPort = 30500
     }
