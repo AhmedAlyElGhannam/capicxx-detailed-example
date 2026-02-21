@@ -1,0 +1,8 @@
+{
+    "bmw.ivi.IVI" : {
+        "service_id": 6942,
+        "instances" : {
+            "bmw.ivi.IVI": 22138
+        }
+    }
+}

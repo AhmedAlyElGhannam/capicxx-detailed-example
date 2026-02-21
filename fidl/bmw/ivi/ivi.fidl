@@ -1,0 +1,39 @@
+package bmw.ivi
+
+
+interface IVI {
+    version { major 1 minor 0 }
+    
+    enumeration SignType {
+        STOP_SIGN,
+        SPEED_LIMIT_SIGN,
+        ROAD_BLOCK_SIGN
+    }
+
+    broadcast notifySpeedLimitSignDetected {
+        out {
+            Int16 speedLimit
+        }
+    }
+
+    broadcast notifyStopSignDetected {
+
+    }
+
+    broadcast notifyRoadBlockDetected {
+
+    }
+
+    broadcast  notifyIVICpuLoad {
+        out {
+            Float usage    
+        }
+    }
+
+    method  requestIVICpuLoad {
+        out {
+            Float usage 
+        }
+    }
+}
+

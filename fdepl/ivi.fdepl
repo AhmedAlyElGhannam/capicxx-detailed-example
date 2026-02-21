@@ -1,0 +1,47 @@
+import "platform:/plugin/org.genivi.commonapi.someip/deployment/CommonAPI-SOMEIP_deployment_spec.fdepl"
+import "../fidl/bmw/ivi/ivi.fidl"
+
+define org.genivi.commonapi.someip.deployment for interface bmw.ivi.IVI {
+    SomeIpServiceID = 6942 
+    
+    broadcast notifySpeedLimitSignDetected {
+        SomeIpEventID = 38006
+        SomeIpEventGroups = { 7002 }
+        SomeIpReliable = false
+    }
+
+    broadcast notifyStopSignDetected {
+        SomeIpEventID = 38007
+        SomeIpEventGroups = { 7002 }
+        SomeIpReliable = false
+    }
+
+    broadcast notifyRoadBlockDetected {
+        SomeIpEventID = 38008
+        SomeIpEventGroups = { 7002 }
+        SomeIpReliable = false
+    }
+
+    broadcast notifyIVICpuLoad {
+        SomeIpEventID = 38022
+        SomeIpEventGroups = { 7003 }
+        SomeIpReliable = false
+    }
+
+    method requestIVICpuLoad {
+        SomeIpMethodID = 1
+        SomeIpReliable = false
+    }  
+}
+
+define org.genivi.commonapi.someip.deployment for provider as Service {
+    instance bmw.ivi.IVI {
+        InstanceId = "bmw.ivi.IVI"
+
+        SomeIpInstanceID = 22138
+
+        SomeIpUnicastAddress = "192.168.100.54" // changes based on the ip of ecu running service
+        SomeIpReliableUnicastPort = 30499
+        SomeIpUnreliableUnicastPort = 30500
+    }
+}

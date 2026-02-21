@@ -1,0 +1,71 @@
+{
+    "unicast": "192.168.100.54",
+    "logging": {
+        "level": "debug",
+        "console": "true",
+        "file": {
+            "enable": "true",
+            "path": "/var/log/vsomeip.log"
+        }
+    },
+    "applications": [
+        {
+            "name": "IVI",
+            "id": "0x1279"
+        }
+    ],
+    "services": [
+        {
+            "service": "0x1B1E",
+            "instance": "0x567A",
+            "unreliable": "30500",
+            "reliable": {
+                "port": "30499",
+                "enable-magic-cookies": "false"
+            },
+            "eventgroups": [
+                {
+                    "id": "0x1B5A",
+                    "reliable": false
+                },
+                {
+                    "id": "0x1B5B",
+                    "reliable": false
+                }
+            ],
+            "events": [
+                {
+                    "id": "0x9476",
+                    "eventgroup": "0x1B5A"
+                },
+                {
+                    "id": "0x9477",
+                    "eventgroup": "0x1B5A"
+                },
+                {
+                    "id": "0x9478",
+                    "eventgroup": "0x1B5A"
+                },
+                {
+                    "id": "0x9486",
+                    "eventgroup": "0x1B5B"
+                }
+            ]
+        }
+    ],
+    "routing": "IVI",
+    "service-discovery": {
+        "enable": true,
+        "protocol": "udp",
+        "multicast": "224.224.224.245",
+        "port": "30490",
+        "initial_delay_min": 10,
+        "initial_delay_max": 100,
+        "repetitions_base_delay": 200,
+        "repetitions_max": 3,
+        "ttl": 3,
+        "cyclic_offer_delay": 2000,
+        "request_response_delay": 1500,
+        "offer_debounce": 1000
+    }
+}
