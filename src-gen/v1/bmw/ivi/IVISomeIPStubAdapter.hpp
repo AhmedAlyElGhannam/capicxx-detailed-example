@@ -89,7 +89,7 @@ public:
             std::make_tuple(static_cast< CommonAPI::EmptyDeployment* >(nullptr)))
         
     {
-        IVISomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x1) }, &requestIVICpuLoadStubDispatcher );
+        IVISomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x3) }, &requestIVICpuLoadStubDispatcher );
         // Provided events/fields
         {
             std::set<CommonAPI::SomeIP::eventgroup_id_t> itsEventGroups;

@@ -27,15 +27,9 @@ int main()
     }
 
     std::cout << "Service registered successfully." << std::endl;
-    service->startSimulation();
 
-    // Keep the main thread alive
     while (true)
-    {
         std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
 
-    // Unreachable
-    service->stopSimulation();
     return 0;
 }

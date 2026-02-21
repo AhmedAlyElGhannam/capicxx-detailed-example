@@ -51,11 +51,10 @@ int main()
     std::cout << "Waiting for service..." << std::endl;
     while (!proxy->isAvailable())
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     std::cout << "Service is available." << std::endl;
 
-    // Subscribe to all broadcasts
     proxy->getNotifySpeedLimitSignDetectedEvent().subscribe(onSpeedLimit);
     proxy->getNotifyStopSignDetectedEvent().subscribe(onStopSign);
     proxy->getNotifyRoadBlockDetectedEvent().subscribe(onRoadBlock);
@@ -63,23 +62,7 @@ int main()
 
     std::cout << "Subscribed to events." << std::endl;
 
-    // Periodically call the method
-    while (true)
-    {
-        std::this_thread::sleep_for(std::chrono::seconds(10));
-        std::cout << "[Client] Calling requestIVICpuLoad..." << std::endl;
-        CommonAPI::CallStatus status;
-        float usage;
-        proxy->requestIVICpuLoad(status, usage);
-        if (status == CommonAPI::CallStatus::SUCCESS)
-        {
-            std::cout << "[Client] Method reply: CPU load = " << usage << "%" << std::endl;
-        }
-        else
-        {
-            std::cerr << "[Client] Method call failed with status " << static_cast<int>(status) << std::endl;
-        }
-    }
+    while (true);
 
     return 0;
 }

@@ -8,20 +8,12 @@ IVIServiceImpl::IVIServiceImpl()
       signDist_(0, 2),
       cpuDist_(0.0f, 100.0f)
 {
+    startSimulation();
 }
 
 IVIServiceImpl::~IVIServiceImpl()
 {
     stopSimulation();
-}
-
-void IVIServiceImpl::requestIVICpuLoad(const std::shared_ptr<CommonAPI::ClientId> _client,
-                                       requestIVICpuLoadReply_t _reply)
-{
-    std::cout << "[Service] requestIVICpuLoad called" << std::endl;
-    float usage = cpuDist_(generator_);
-    std::cout << "[Service] returning CPU load = " << usage << std::endl;
-    _reply(usage);
 }
 
 void IVIServiceImpl::startSimulation()
@@ -42,41 +34,47 @@ void IVIServiceImpl::stopSimulation()
     }
 }
 
+void IVIServiceImpl::requestIVICpuLoad(const std::shared_ptr<CommonAPI::ClientId> _client,
+                                       requestIVICpuLoadReply_t _reply)
+{
+    std::cout << "[Service] requestIVICpuLoad called" << std::endl;
+    float usage = cpuDist_(generator_);
+    std::cout << "[Service] returning CPU load = " << usage << std::endl;
+    _reply(usage);
+}
+
 void IVIServiceImpl::simulationLoop()
 {
+    static int16_t speed = 0;
+    static float cpu = 0.0f;
+
     while (running_)
     {
-        // Simulate a sign detection every 5–10 seconds
-        std::this_thread::sleep_for(std::chrono::seconds(5 + (rand() % 6)));
-        if (!running_)
-            break;
+        // broadcast CPU load event
+        cpu = cpuDist_(generator_);
+        std::cout << "[Service] fire IVICpuLoad: " << cpu << std::endl;
+        fireNotifyIVICpuLoadEvent(cpu);
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 
         int signType = signDist_(generator_);
         switch (signType)
         {
-        case 0: // stop sign
-            std::cout << "[Service] fire StopSignDetected" << std::endl;
-            fireNotifyStopSignDetectedEvent();
+            case 0: // stop sign
+                std::cout << "[Service] fire StopSignDetected" << std::endl;
+                fireNotifyStopSignDetectedEvent();
             break;
-        case 1: // speed limit sign
-        {
-            int16_t speed = 30 + (rand() % 70); // 30..99 km/h
-            std::cout << "[Service] fire SpeedLimitSignDetected: " << speed << std::endl;
-            fireNotifySpeedLimitSignDetectedEvent(speed);
-        }
-        break;
-        case 2: // road block
-            std::cout << "[Service] fire RoadBlockDetected" << std::endl;
-            fireNotifyRoadBlockDetectedEvent();
-            break;
-        }
 
-        // Additionally fire a CPU load event every 3 seconds
-        std::this_thread::sleep_for(std::chrono::seconds(3));
-        if (!running_)
+            case 1: // speed limit sign
+                speed = 50 + (rand() % 70); // 50..120 km/h
+                std::cout << "[Service] fire SpeedLimitSignDetected: " << speed << std::endl;
+                fireNotifySpeedLimitSignDetectedEvent(speed);
             break;
-        float cpu = cpuDist_(generator_);
-        std::cout << "[Service] fire IVICpuLoad: " << cpu << std::endl;
-        fireNotifyIVICpuLoadEvent(cpu);
+
+            case 2: // road block
+                std::cout << "[Service] fire RoadBlockDetected" << std::endl;
+                fireNotifyRoadBlockDetectedEvent();
+            break;
+        }
     }
 }

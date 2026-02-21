@@ -85,7 +85,7 @@ void IVISomeIPProxy::requestIVICpuLoad(CommonAPI::CallStatus &_internalCallStatu
         >
     >::callMethodWithReply(
         *this,
-        CommonAPI::SomeIP::method_id_t(0x1),
+        CommonAPI::SomeIP::method_id_t(0x3),
         false,
         false,
         (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
@@ -107,7 +107,7 @@ std::future<CommonAPI::CallStatus> IVISomeIPProxy::requestIVICpuLoadAsync(Reques
         >
     >::callMethodAsync(
         *this,
-        CommonAPI::SomeIP::method_id_t(0x1),
+        CommonAPI::SomeIP::method_id_t(0x3),
         false,
         false,
         (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),

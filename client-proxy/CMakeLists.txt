@@ -28,3 +28,21 @@ target_link_libraries(${PROJECT_NAME}
     CommonAPI
     CommonAPI-SomeIP
 )
+
+# copy init script & config file for convenience
+set(CLIENT_INIT_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../client_init.sh)
+set(CLIENT_CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../client-config.json)
+set(CLIENT_DEFAULT_BINDING_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../commonapi.ini)
+
+add_custom_command(TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CLIENT_INIT_SCRIPT}
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CLIENT_CONFIG_FILE}
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CLIENT_DEFAULT_BINDING_FILE}
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>
+)
