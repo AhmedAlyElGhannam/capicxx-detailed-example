@@ -6,6 +6,14 @@
 #include <atomic>
 #include <random>
 
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[93m"
+#define BLUE    "\033[94m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+#define RESET   "\033[0m"
+
 class IVIServiceImpl : public v1::bmw::ivi::IVIStubDefault
 {
 public:

@@ -34,12 +34,21 @@ void IVIServiceImpl::stopSimulation()
     }
 }
 
-void IVIServiceImpl::requestIVICpuLoad(const std::shared_ptr<CommonAPI::ClientId> _client,
-                                       requestIVICpuLoadReply_t _reply)
+void IVIServiceImpl::requestIVICpuLoad(
+    const std::shared_ptr<CommonAPI::ClientId> _client,
+    requestIVICpuLoadReply_t _reply)
 {
-    std::cout << "[Service] requestIVICpuLoad called" << std::endl;
+    std::cout << GREEN
+              << "[Service] requestIVICpuLoad called"
+              << RESET << std::endl;
+
     float usage = cpuDist_(generator_);
-    std::cout << "[Service] returning CPU load = " << usage << std::endl;
+
+    std::cout << GREEN
+              << "[Service] returning CPU load = "
+              << usage
+              << RESET << std::endl;
+
     _reply(usage);
 }
 
@@ -52,7 +61,11 @@ void IVIServiceImpl::simulationLoop()
     {
         // broadcast CPU load event
         cpu = cpuDist_(generator_);
-        std::cout << "[Service] fire IVICpuLoad: " << cpu << std::endl;
+        std::cout << BLUE
+                  << "[Service] fire IVICpuLoad: "
+                  << cpu
+                  << RESET << std::endl;
+
         fireNotifyIVICpuLoadEvent(cpu);
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -61,18 +74,28 @@ void IVIServiceImpl::simulationLoop()
         switch (signType)
         {
             case 0: // stop sign
-                std::cout << "[Service] fire StopSignDetected" << std::endl;
+                std::cout << MAGENTA
+                          << "[Service] fire StopSignDetected"
+                          << RESET << std::endl;
+
                 fireNotifyStopSignDetectedEvent();
             break;
 
             case 1: // speed limit sign
                 speed = 50 + (rand() % 70); // 50..120 km/h
-                std::cout << "[Service] fire SpeedLimitSignDetected: " << speed << std::endl;
+                std::cout << CYAN
+                          << "[Service] fire SpeedLimitSignDetected: "
+                          << speed
+                          << RESET << std::endl;
+
                 fireNotifySpeedLimitSignDetectedEvent(speed);
             break;
 
             case 2: // road block
-                std::cout << "[Service] fire RoadBlockDetected" << std::endl;
+                std::cout << YELLOW
+                          << "[Service] fire RoadBlockDetected"
+                          << RESET << std::endl;
+
                 fireNotifyRoadBlockDetectedEvent();
             break;
         }

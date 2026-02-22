@@ -32,7 +32,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # copy init script & config file for convenience
-set(SERVICE_INIT_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../service_init.sh)
+set(SERVICE_INIT_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../init_service.sh)
 set(SERVICE_CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../service-config.json)
 set(SERVICE_DEFAULT_BINDING_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../commonapi.ini)
 
