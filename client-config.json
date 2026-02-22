@@ -5,17 +5,57 @@
         "console": "true",
         "file": {
             "enable": "true",
-            "path": "/var/log/vsomeip.log"
+            "path": "/var/log/vsomeip-client.log"
         },
         "dlt": "false"
     },
     "applications": [
         {
             "name": "IVI-Client",
-            "id": "0x127A"
+            "id": "0x1280"
         }
     ],
-    "routing": "IVI-Client",
+    "services": [
+        {
+            "service": "0x1b1e",
+            "instance": "0x567a",
+            "reliable": {
+                "port": 30499,
+                "enable-magic-cookies": false
+            },
+            "unreliable": 30500,
+            "methods": [
+                {
+                    "method": "0x0003"
+                }
+            ],
+            "eventgroups": [
+                {
+                    "id": "0x1b5a",
+                    "events": [
+                        {
+                            "event": "0x9476"
+                        },
+                        {
+                            "event": "0x9477"
+                        },
+                        {
+                            "event": "0x9478"
+                        }
+                    ]
+                },
+                {
+                    "id": "0x1b5b",
+                    "events": [
+                        {
+                            "event": "0x9486"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "routing": "IVI-Service",
     "service-discovery": {
         "enable": true,
         "protocol": "udp",

@@ -12,11 +12,9 @@ public:
     IVIServiceImpl();
     virtual ~IVIServiceImpl();
 
-    // Override the method
     virtual void requestIVICpuLoad(const std::shared_ptr<CommonAPI::ClientId> _client,
                                    requestIVICpuLoadReply_t _reply) override;
 
-    // Start/stop the event simulation thread
     void startSimulation();
     void stopSimulation();
 

@@ -29,7 +29,7 @@ define org.genivi.commonapi.someip.deployment for interface bmw.ivi.IVI {
     }
 
     method requestIVICpuLoad {
-        SomeIpMethodID = 1
+        SomeIpMethodID = 3
         SomeIpReliable = false
     }  
 }

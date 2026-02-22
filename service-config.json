@@ -5,7 +5,7 @@
         "console": "true",
         "file": {
             "enable": "true",
-            "path": "/var/log/vsomeip.log"
+            "path": "/var/log/vsomeip-service.log"
         },
         "dlt": "false"
     },
@@ -17,21 +17,42 @@
     ],
     "services": [
         {
-            "service": "6942",
-            "instance": "22138",
+            "service": "0x1b1e",
+            "instance": "0x567a",
             "unreliable": 30500,
             "reliable": {
                 "port": 30499,
                 "enable-magic-cookies": false
             },
+            "methods": [
+                {
+                    "method": "0x0003"
+                }
+            ],
             "eventgroups": [
                 {
-                    "id": "7002",
-                    "unreliable": true
+                    "id": "0x1b5a",
+                    "unreliable": true,
+                    "events": [
+                        {
+                            "event": "0x9476"
+                        },
+                        {
+                            "event": "0x9477"
+                        },
+                        {
+                            "event": "0x9478"
+                        }
+                    ]
                 },
                 {
-                    "id": "7003",
-                    "unreliable": true
+                    "id": "0x1b5b",
+                    "unreliable": true,
+                    "events": [
+                        {
+                            "event": "0x9486"
+                        }
+                    ]
                 }
             ]
         }
